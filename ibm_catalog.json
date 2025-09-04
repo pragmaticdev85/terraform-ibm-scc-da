@@ -239,34 +239,12 @@
           ],
           "outputs": [
             {
-              "key": ""
+              "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
+              "key": "schematics_workspace_id"
             },
             {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
-            },
-            {
-              "key": ""
+              "description": "prefix used in this infrastructure",
+              "key": "prefix"
             }
           ],
           "iam_permissions": [
@@ -332,8 +310,258 @@
                 "description": "This architecture supports creating and configuring Oracle database instance on Power VS - Private Cloud"
               }
             ]
+          }
+        },
+        {
+          "label": "standard-2",
+          "name": "standard-2",
+          "install_type": "fullstack",
+          "index": 1,
+          "working_directory": "solutions/standard-2",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.7.0"
+              }
+            ]
           },
-          "terraform_version": "1.10.5"
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key",
+              "type": "multiline_secure_value",
+              "display_name": "ibmcloud_api_key",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "iaas_classic_username",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "iaas_classic_api_key",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "region",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "zone",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "prefix",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_existing_workspace_guid",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_ssh_public_key_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "ssh_private_key",
+              "type": "multiline_secure_value",
+              "display_name": "ssh_private_key",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "pi_rhel_management_server_type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_rhel_image_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_aix_image_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_aix_instance",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              },
+              "required": true
+            },
+            {
+              "key": "pi_networks",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              },
+              "required": true
+            },
+            {
+              "key": "pi_user_tags",
+              "type": "list",
+              "required": true
+            },
+            {
+              "key": "pi_boot_volume",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "pi_oravg_volume",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "pi_data_volume",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "bastion_host_ip",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "ora_nfs_device",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "database_sw",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "grid_sw",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "apply_ru",
+              "type": "bool",
+              "required": true
+            },
+            {
+              "key": "ru_file",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "opatch_file",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "ora_sid",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
+              "key": "schematics_workspace_id"
+            },
+            {
+              "description": "prefix used in this infrastructure",
+              "key": "prefix"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
+              "service_name": "transit.gateway"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "power-iaas"
+            }
+          ],
+          "architecture": {
+            "descriptions": "This architecture supports creating and configuring a Oracle instance on PowerVS Private (within customer's data center).",
+            "features": [
+              {
+                "title": "Creates a AIX Virtual Server instance",
+                "description": "Creates a AIX Virtual Server instance for hosting the Oracle database, refers to Data Plane"
+              },
+              {
+                "title": "Creates a RHEL Virtual Server instance",
+                "description": "Creates a RHEL Virtual Server instance for hosting the Management Plane to setup the Oracle instance in the AIX Virtual Server instance"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Oracle Instance on Power VS - Private Cloud",
+                  "url": "",
+                  "type": "image/svg+xml"
+                },
+                "description": "This architecture supports creating and configuring Oracle database instance on Power VS - Private Cloud"
+              }
+            ]
+          }
         }
       ]
     }
