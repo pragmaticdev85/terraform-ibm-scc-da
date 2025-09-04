@@ -1,52 +1,71 @@
 {
   "products": [
     {
-      "name": "deploy-arch-ibm-scc",
-      "label": "Cloud automation for Security and Compliance Center",
+      "name": "",
+      "label": "",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
         "target_terraform",
         "terraform",
         "solution",
-        "security"
+        "network_vpc",
+        "free",
+        "Technology",
+        "SoftwareAndPlatformApplications",
+        "reference_architecture",
+        "support_ibm",
+        "infra_only",
+        "single_system",
+        "converged_infra"
       ],
       "keywords": [
-        "SCC",
-        "security",
-        "compliance",
-        "workload-protection",
-        "IaC",
-        "infrastructure as code",
-        "terraform",
-        "solution"
+        "power",
+        "sap",
+        "sap hana",
+        "sap netweaver",
+        "power solution",
+        "power infrastructure",
+        "powervs",
+        "power vs",
+        "power framework",
+        "sap power",
+        "automation",
+        "secure",
+        "networking",
+        "vertical scaling",
+        "scalable server",
+        "quickstart",
+        "quick",
+        "ibmi",
+        "aix",
+        "linux"
       ],
-      "short_description": "Creates and configures IBM Security and Compliance Center resources",
-      "long_description": "This architecture supports creating and configuring IBM Security and Compliance Center resources.",
-      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-scc-da/blob/main/solutions/instances/README.md",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-da/main/images/scc-icon.svg",
-      "provider_name": "IBM",
+      "short_description": "",
+      "long_description": "",
+      "offering_docs_url": "",
+      "offering_icon_url": "",
       "features": [
         {
-          "title": "Security and Compliance Center",
-          "description": "Creates and configures a Security and Compliance Center instance."
+          "description": "",
+          "title": ""
         },
         {
-          "title": "Object Storage bucket for Security and Compliance Center",
-          "description": "Creates and configures a KMS-encrypted Object Storage bucket required for the Security and Compliance Center instance."
+          "description": "",
+          "title": ""
         },
         {
-          "title": "Security and Compliance Center Workload Protection",
-          "description": "Creates and configures a Security and Compliance Center Workload Protection instance."
+          "description": "",
+          "title": ""
         }
       ],
-      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in that repository [https://github.com/terraform-ibm-modules/terraform-ibm-scc-da/issues](https://github.com/terraform-ibm-modules/terraform-ibm-scc-da/issues). Please note this product is not supported via the IBM Cloud Support Center.",
       "flavors": [
         {
-          "label": "Instances",
-          "name": "instances",
+          "label": "",
+          "name": "",
           "install_type": "fullstack",
-          "working_directory": "solutions/instances",
+          "index": 1,
+          "working_directory": "solutions/standard",
           "compliance": {
             "authority": "scc-v3",
             "profiles": [
@@ -58,413 +77,285 @@
           },
           "configuration": [
             {
-              "key": "ibmcloud_api_key"
+              "key": "ibmcloud_api_key",
+              "type": "multiline_secure_value",
+              "display_name": "ibmcloud_api_key",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "iaas_classic_username",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "iaas_classic_api_key",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "region",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "zone",
+              "type": "string",
+              "required": true
             },
             {
               "key": "prefix",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_existing_workspace_guid",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "pi_ssh_public_key_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "key": "ssh_private_key",
+              "type": "multiline_secure_value",
+              "display_name": "ssh_private_key",
               "required": true,
-              "description": "Prefix to add to all resources that this solution creates. To not use any prefix value, you can enter the string `__NULL__`."
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
             },
             {
-              "key": "use_existing_resource_group",
+              "key": "pi_rhel_management_server_type",
+              "type": "string",
               "required": true
             },
             {
-              "key": "resource_group_name",
+              "key": "pi_rhel_image_name",
+              "type": "string",
               "required": true
             },
             {
-              "key": "scc_region",
-              "required": true,
-              "options": [
-                {
-                  "displayname": "Dallas (us-south)",
-                  "value": "us-south"
-                },
-                {
-                  "displayname": "Frankfurt (eu-de)",
-                  "value": "eu-de"
-                },
-                {
-                  "displayname": "Madrid (eu-es)",
-                  "value": "eu-es"
-                },
-                {
-                  "displayname": "Toronto (ca-tor)",
-                  "value": "ca-tor"
-                }
-              ]
-            },
-            {
-              "key": "existing_kms_instance_crn",
+              "key": "pi_aix_image_name",
+              "type": "string",
               "required": true
             },
             {
-              "key": "provider_visibility",
-              "options": [
-                {
-                  "displayname": "private",
-                  "value": "private"
-                },
-                {
-                  "displayname": "public",
-                  "value": "public"
-                },
-                {
-                  "displayname": "public-and-private",
-                  "value": "public-and-private"
-                }
-              ]
-            },
-            {
-              "key": "scc_instance_name"
-            },
-            {
-              "key": "scc_instance_tags",
+              "key": "pi_aix_instance",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
+                "type": "code_editor"
+              },
+              "required": true
             },
             {
-              "key": "scc_service_plan",
-              "options": [
-                {
-                  "displayname": "Standard",
-                  "value": "security-compliance-center-standard-plan"
-                },
-                {
-                  "displayname": "Trial",
-                  "value": "security-compliance-center-trial-plan"
-                }
-              ]
-            },
-            {
-              "key": "existing_scc_instance_crn"
-            },
-            {
-              "key": "cos_instance_name"
-            },
-            {
-              "key": "cos_instance_tags",
+              "key": "pi_networks",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
+                "type": "code_editor"
+              },
+              "required": true
             },
             {
-              "key": "cos_instance_access_tags",
+              "key": "pi_user_tags",
+              "type": "list",
+              "required": true
+            },
+            {
+              "key": "pi_boot_volume",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
+                "type": "code_editor"
               }
             },
             {
-              "key": "scc_cos_bucket_name"
-            },
-            {
-              "key": "scc_cos_bucket_region",
-              "options": [
-                {
-                  "displayname": "Same region as SCC instance",
-                  "value": "__NULL__"
-                },
-                {
-                  "displayname": "Dallas (us-south)",
-                  "value": "us-south"
-                },
-                {
-                  "displayname": "Sydney (au-syd)",
-                  "value": "au-syd"
-                },
-                {
-                  "displayname": "Sao Paolo (br-sao)",
-                  "value": "br-sao"
-                },
-                {
-                  "displayname": "Toronto (ca-tor)",
-                  "value": "ca-tor"
-                },
-                {
-                  "displayname": "Frankfurt (eu-de)",
-                  "value": "eu-de"
-                },
-                {
-                  "displayname": "London (eu-gb)",
-                  "value": "eu-gb"
-                },
-                {
-                  "displayname": "Madrid (eu-es)",
-                  "value": "eu-es"
-                },
-                {
-                  "displayname": "Osaka (jp-osa)",
-                  "value": "jp-osa"
-                },
-                {
-                  "displayname": "Tokyo (jp-tok)",
-                  "value": "jp-tok"
-                },
-                {
-                  "displayname": "Washington DC (us-east)",
-                  "value": "us-east"
-                }
-              ]
-            },
-            {
-              "key": "add_bucket_name_suffix"
-            },
-            {
-              "key": "scc_cos_bucket_access_tags",
+              "key": "pi_oravg_volume",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
+                "type": "code_editor"
               }
             },
             {
-              "key": "scc_cos_bucket_class",
-              "options": [
-                {
-                  "displayname": "Cold",
-                  "value": "cold"
-                },
-                {
-                  "displayname": "Onerate active",
-                  "value": "onerate_active"
-                },
-                {
-                  "displayname": "Smart",
-                  "value": "smart"
-                },
-                {
-                  "displayname": "Standard",
-                  "value": "standard"
-                },
-                {
-                  "displayname": "Vault",
-                  "value": "vault"
-                }
-              ]
-            },
-            {
-              "key": "existing_scc_cos_bucket_name"
-            },
-            {
-              "key": "management_endpoint_type_for_bucket",
-              "options": [
-                {
-                  "displayname": "Direct",
-                  "value": "direct"
-                },
-                {
-                  "displayname": "Private",
-                  "value": "private"
-                },
-                {
-                  "displayname": "Public",
-                  "value": "public"
-                }
-              ]
-            },
-            {
-              "key": "existing_cos_instance_crn"
-            },
-            {
-              "key": "existing_monitoring_crn"
-            },
-            {
-              "key": "skip_scc_cos_iam_auth_policy"
-            },
-            {
-              "key": "existing_scc_cos_kms_key_crn"
-            },
-            {
-              "key": "ibmcloud_kms_api_key"
-            },
-            {
-              "key": "kms_endpoint_type",
-              "options": [
-                {
-                  "displayname": "Public",
-                  "value": "public"
-                },
-                {
-                  "displayname": "Private",
-                  "value": "private"
-                }
-              ]
-            },
-            {
-              "key": "skip_cos_kms_iam_auth_policy"
-            },
-            {
-              "key": "scc_cos_key_ring_name"
-            },
-            {
-              "key": "scc_cos_key_name"
-            },
-            {
-              "key": "profile_attachments"
-            },
-            {
-              "key": "resource_groups_scope"
-            },
-            {
-              "key": "attachment_schedule",
-              "options": [
-                {
-                  "displayname": "Daily",
-                  "value": "daily"
-                },
-                {
-                  "displayname": "Weekly",
-                  "value": "every_7_days"
-                },
-                {
-                  "displayname": "Monthly",
-                  "value": "every_30_days"
-                },
-                {
-                  "displayname": "Never",
-                  "value": "none"
-                }
-              ]
-            },
-            {
-              "key": "provision_scc_workload_protection"
-            },
-            {
-              "key": "scc_workload_protection_instance_name"
-            },
-            {
-              "key": "scc_workload_protection_service_plan",
-              "options": [
-                {
-                  "displayname": "Free trial",
-                  "value": "free-trial"
-                },
-                {
-                  "displayname": "Graduated tier",
-                  "value": "graduated-tier"
-                }
-              ]
-            },
-            {
-              "key": "scc_workload_protection_instance_tags",
+              "key": "pi_data_volume",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
+                "type": "code_editor"
               }
             },
             {
-              "key": "scc_workload_protection_resource_key_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
+              "key": "bastion_host_ip",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "scc_workload_protection_access_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
+              "key": "ora_nfs_device",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "skip_scc_workload_protection_iam_auth_policy"
+              "key": "database_sw",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "existing_event_notifications_crn"
+              "key": "grid_sw",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "event_notifications_source_name"
+              "key": "apply_ru",
+              "type": "bool",
+              "required": true
             },
             {
-              "key": "event_notifications_source_description"
+              "key": "ru_file",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "scc_event_notifications_email_list"
+              "key": "opatch_file",
+              "type": "string",
+              "required": true
             },
             {
-              "key": "scc_event_notifications_from_email"
+              "key": "ora_sid",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": ""
             },
             {
-              "key": "scc_event_notifications_reply_to_email"
+              "key": ""
             },
             {
-              "key": "scc_instance_cbr_rules"
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
+            },
+            {
+              "key": ""
             }
           ],
           "iam_permissions": [
             {
-              "service_name": "compliance",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ]
-            },
-            {
-              "service_name": "cloud-object-storage",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ]
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "kms"
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "transit.gateway"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "power-iaas"
             }
           ],
           "architecture": {
-            "descriptions": "This architecture supports creating and configuring a Security and Compliance Center Workload Protection instance.",
             "features": [
               {
-                "title": "Creates a Security and Compliance Center instance",
-                "description": "Creates and configures a Security and Compliance Center instance."
+                "title": "",
+                "description": ""
               },
               {
-                "title": "Creates an Object Storage bucket",
-                "description": "Creates and configures a KMS-encrypted Object Storage bucket required for the Security and Compliance Center instance."
+                "title": "",
+                "description": ""
               },
               {
-                "title": "Creates a Security and Compliance Center Workload Protection instance",
-                "description": "Creates and configures a Security and Compliance Center Workload Protection instance."
+                "title": "",
+                "description": ""
+              },
+              {
+                "title": "",
+                "description": ""
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Security and Compliance Center",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-da/main/reference-architecture/scc.svg",
+                  "caption": "",
+                  "url": "",
                   "type": "image/svg+xml"
                 },
-                "description": "This architecture supports creating and configuring IBM Security and Compliance Center resources"
+                "description": ""
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         }
       ]
     }
