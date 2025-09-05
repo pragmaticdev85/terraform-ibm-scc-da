@@ -46,7 +46,7 @@
           "label": "Instances",
           "name": "instances",
           "install_type": "fullstack",
-          "working_directory": "solutions/instances",
+          "working_directory": "abc/instances",
           "compliance": {
             "authority": "scc-v3",
             "profiles": [
