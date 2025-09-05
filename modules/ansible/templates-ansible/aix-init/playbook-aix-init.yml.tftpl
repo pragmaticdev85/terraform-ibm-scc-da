@@ -1,0 +1,248 @@
+# ------------------------------------------------------------------------
+# This playbook performs the prerequisite for oracle installation and patching
+# ------------------------------------------------------------------------
+
+---
+- name: Unified Pre-requisites for AIX Setup
+  hosts: all
+  gather_facts: false
+  become: true
+  become_method: ansible.builtin.su
+  become_user: root
+
+  vars:
+    proxy_ip_port: "${PROXY_IP_PORT}"
+    no_proxy: "${NO_PROXY}"
+    ora_nfs_host: "${ORA_NFS_HOST}"
+    ora_nfs_device: "${ORA_NFS_DEVICE}"
+
+    # Grid s/w owner
+    ora_grid_user: grid
+
+    # RDBMS s/w owner
+    ora_user: oracle
+
+  tasks:
+
+    #################################################################
+    # 1. Raw & Custom Image Pre-reqs
+    #################################################################
+
+    - name: "Run cfgmgr and VG setup"
+      block:
+
+        - name: Run cfgmgr
+          ansible.builtin.command: cfgmgr
+          changed_when: false
+          tags: [raw_image, custom_image]
+
+        - name: Set VG type to 8 PVs
+          ansible.builtin.command: chvg -t 8 rootvg
+          changed_when: false
+          when:
+          tags: [raw_image, custom_image]
+
+        - name: Get disk for rootvg
+          ansible.builtin.shell: |
+            lsmpio -qa | grep -i exboot | awk '{print $1}' | head -1
+          register: rootvg_disk
+          changed_when: false
+          tags: [raw_image]
+
+        - name: Extend rootvg with hdisk1 (Raw only)
+          ansible.builtin.command: extendvg -f rootvg "{{ rootvg_disk.stdout }}"
+          changed_when: false
+          when: rootvg_disk.stdout != ""
+          tags: [raw_image]
+
+        - name: Set hd6 max LPs
+          ansible.builtin.command: chlv -x 4096 hd6
+          changed_when: false
+          tags: [raw_image, custom_image]
+
+        - name: Update VG metadata (Custom only)
+          ansible.builtin.command: chvg -g rootvg
+          changed_when: false
+          tags: [custom_image]
+
+        - name: Mark raw_image/custom_image pre-reqs as done
+          ansible.builtin.file:
+            path: "{{ done_file_dir }}/root_vg_extended.done"
+            state: touch
+          tags: [raw_image, custom_image]
+
+
+
+    #################################################################
+    # 2. Local NFS local Repo Setup
+    #################################################################
+    - name: Local repo setup
+      tags: [local_repo]
+      block:
+
+        - name: Get AIX version string
+          ansible.builtin.command: oslevel -s
+          register: oslevel_out
+          changed_when: false
+
+        - name: Derive minor version
+          ansible.builtin.set_fact:
+            aix_version: "{{ oslevel_out.stdout[1] }}"
+
+        - name: Build repo path
+          ansible.builtin.set_fact:
+            dnf_repo_path: "file://{{ ora_nfs_device }}/aix_toolbox/7.{{ aix_version }}/ppc/"
+
+        - name: Backup dnf.conf
+          ansible.builtin.copy:
+            src: /opt/freeware/etc/dnf/dnf.conf
+            dest: "/opt/freeware/etc/dnf/dnf.conf.bak_{{ lookup('ansible.builtin.pipe', 'date +%Y%m%d%H%M%S') }}"
+            remote_src: true
+
+        - name: Overwrite dnf.conf for NFS repo
+          ansible.builtin.copy:
+            dest: /opt/freeware/etc/dnf/dnf.conf
+            mode: '0644'
+            content: |
+              [main]
+              cachedir=/var/cache/dnf
+              keepcache=1
+              debuglevel=2
+              logfile=/var/log/dnf.log
+              obsoletes=1
+              plugins=1
+              gpgcheck=1
+              installonly_limit=3
+              clean_requirements_on_remove=True
+              best=True
+              skip_if_unavailable=True
+
+              [local-nfs-toolbox]
+              name = AIX Toolbox via NFS
+              baseurl = {{ dnf_repo_path }}
+              enabled = 1
+              gpgcheck = 0
+
+        - name: Create mount directory
+          ansible.builtin.file:
+            path: "{{ ora_nfs_device }}"
+            state: directory
+            mode: '0755'
+
+        - name: Mount the NFS share
+          ansible.builtin.shell: "/usr/sbin/mount -v nfs -o rw {{ ora_nfs_host }}:{{ ora_nfs_device }} {{ ora_nfs_device }}"
+
+        - name: Mark local_repo setup as done
+          ansible.builtin.file:
+            path: "{{ done_file_dir }}/local_repo.done"
+            state: touch
+
+    #################################################################
+    # 3. Proxy Setup
+    #################################################################
+    - name: Proxy Setup
+      tags: [proxy]
+      block:
+
+        - name: Set proxy environment variables in /etc/profile
+          ansible.builtin.blockinfile:
+            path: /etc/profile
+            marker: "# {mark} PROXY SETTINGS"
+            block: |
+              export http_proxy=http://{{ proxy_ip_port }}
+              export https_proxy=http://{{ proxy_ip_port }}
+              export HTTP_PROXY=http://{{ proxy_ip_port }}
+              export HTTPS_PROXY=http://{{ proxy_ip_port }}
+              export no_proxy={{ no_proxy }}
+          tags: proxy
+
+        - name: Export proxy variables for current session
+          ansible.builtin.shell: |
+            export http_proxy=http://{{ proxy_ip_port }}
+            export https_proxy=http://{{ proxy_ip_port }}
+            export HTTP_PROXY=http://{{ proxy_ip_port }}
+            export HTTPS_PROXY=http://{{ proxy_ip_port }}
+            export no_proxy={{ no_proxy }}
+          changed_when: false
+          tags: proxy
+
+    #################################################################
+    # 4. Patch Setup
+    #################################################################
+
+    - name: Patch Setup
+      tags: [patch]
+      block:
+
+        - name: Check current /opt size
+          ansible.builtin.raw: df -m /opt | awk '$0 !~ /Filesystem/ {printf "%d", $3}'
+          register: opt_fs_size_out
+          changed_when: false
+
+        - name: Expand /opt if needed
+          ibm.power_aix.filesystem:
+            filesystem: /opt
+            state: present
+            attributes: size=+500M
+          when: opt_fs_size_out.stdout | int < 250
+
+        - name: Install sudo using DNF
+          ansible.builtin.command: /opt/freeware/bin/dnf install -y sudo
+          args:
+            creates: /opt/freeware/bin/sudo
+
+        - name: Create patch directories
+          ansible.builtin.file:
+            path: "{{ item.path }}"
+            state: directory
+            mode: '0755'
+            owner: "{{ item.owner }}"
+            group: oinstall
+          loop:
+            - { path: /u01/patches/db, owner: oracle }
+            - { path: /u01/patches/grid, owner: grid }
+
+        - name: Ensure users exist
+          ansible.builtin.user:
+            name: "{{ item }}"
+            shell: /bin/bash
+            state: present
+          loop:
+            - "{{ ora_user }}"
+            - "{{ ora_grid_user }}"
+
+        - name: Add sudoers for oracle/grid
+          ansible.builtin.lineinfile:
+            path: /etc/sudoers
+            line: "{{ item }}"
+            validate: 'visudo -cf %s'
+          loop:
+            - "grid ALL=(ALL) NOPASSWD: ALL"
+            - "oracle ALL=(ALL) NOPASSWD: ALL"
+
+        - name: Create .ssh directories
+          ansible.builtin.file:
+            path: "/home/{{ item }}/.ssh"
+            state: directory
+            owner: "{{ item }}"
+            group: "{{ora_oinstall_group}}"
+            mode: '0700'
+          loop:
+            - "{{ ora_user }}"
+            - "{{ ora_grid_user }}"
+
+        - name: Copy SSH keys
+          ansible.builtin.copy:
+            src: "{{ ssh_public_key }}"
+            dest: "/home/{{ item }}/.ssh/authorized_keys"
+            owner: "{{ item }}"
+            group: "{{ora_oinstall_group}}"
+            mode: '0600'
+          loop:
+            - "{{ ora_user }}"
+            - "{{ ora_grid_user }}"
+
+        - name: Mark patch setup as done
+          ansible.builtin.file:
+            path: "{{ done_file_dir }}/patch.done"
+            state: touch
