@@ -338,11 +338,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "",
-                  "url": "",
+                  "caption": "Full Oracle instance environment provisioned on a Power Virtual Server - Private Cloud",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-sap/refs/tags/v4.2.2/reference-architectures/sap-s4hana-bw4hana/deploy-arch-ibm-pvs-sap-s4hana-bw4hana.svg",
                   "type": "image/svg+xml"
                 },
-                "description": ""
+                "description": "Full Oracle instance environment provisioned on a Power Virtual Server - Private Cloud"
               }
             ]
           },
