@@ -61,16 +61,7 @@
             "authority": "",
             "profiles": []
           },
-          "dependencies": [
-            {
-              "flavors": ["standard", "standard-extend"],
-              "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
-              "name": "deploy-arch-ibm-pvs-inf",
-              "install_type": "fullstack",
-              "optional": true,
-              "version": ">=8.0.0"
-            }
-          ],
+          "dependencies": [],
           "configuration": [
             {
               "key": "powervs_zone",
