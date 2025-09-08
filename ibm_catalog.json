@@ -328,20 +328,20 @@
           "architecture": {
             "features": [
               {
-                "title": "",
-                "description": ""
+                "title": "Setting up AIX based Virtual Server from the PowerVS customer's data-center",
+                "description": "Setup AIX based Virtual Server from the PowerVS customer's data center - Data Plane"
               },
               {
-                "title": "",
-                "description": ""
+                "title": "Setting up RHEL based Virtual Server from the PowerVS customer's data-center",
+                "description": "Setup RHEL based Virtual Server from the PowerVS customer's data-center - Manaagement Plane"
               },
               {
-                "title": "",
-                "description": ""
+                "title": "Setting up and initialize the Oracle Database instance on the AIX Virtual Server",
+                "description": "Setup and initialize the Oracle Database instance on the AIX Virtual Server"
               },
               {
-                "title": "",
-                "description": ""
+                "title": "Enabling the management of the Oracle database instance from IBM Cloud Console",
+                "description": "Enabling the management of the Oracle database instance from IBM Cloud Console"
               }
             ],
             "diagrams": [
