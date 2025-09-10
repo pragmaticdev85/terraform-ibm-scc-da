@@ -272,11 +272,13 @@
             {
               "key": "db_storage",
               "required": false,
+              "type": "string",
               "default_value": ""
             },
             {
               "key": "pi_user_tags",
               "required": false,
+              "type": "string",
               "default_value": ""
             }
           ],
