@@ -64,7 +64,7 @@
           "dependencies": [],
           "configuration": [
             {
-              "key": "powervs_zone",
+              "key": "zone",
               "type": "string",
               "default_value": "",
               "required": true,
@@ -145,6 +145,47 @@
               "custom_config": {}
             },
             {
+              "key": "region",
+              "type": "string",
+              "default_value": "",
+              "required": true,
+              "options": [
+                {
+                  "displayname": "Dallas (dallas)",
+                  "value": "us-south"
+                },
+                {
+                  "displayname": "Washington, D.C.",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "Frankfurt",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "London",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "Tokyo",
+                  "value": "jp-tok"
+                },
+                {
+                  "displayname": "Sydney",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "Sao Paulo",
+                  "value": "br-sao"
+                },
+                {
+                  "displayname": "Toronto",
+                  "value": "ca-tor"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
               "key": "ibmcloud_api_key",
               "type": "multiline_secure_value",
               "display_name": "ibmcloud_api_key",
@@ -156,91 +197,15 @@
               }
             },
             {
-              "key": "ssh_public_key",
+              "key": "pi_ssh_public_key_name",
               "type": "multiline_secure_value",
-              "display_name": "ssh_public_key",
+              "display_name": "pi_ssh_public_key_name",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
                 "type": "multiline_secure_value"
               }
-            },
-            {
-              "key": "powervs_aix_oracle_memory_size",
-              "required": false,
-              "options": [
-                {
-                  "displayname": "4 GB",
-                  "value": "4G"
-                },
-                {
-                  "displayname": "8 GB",
-                  "value": "8G"
-                },
-                {
-                  "displayname": "16 GB",
-                  "value": "16G"
-                },
-                {
-                  "displayname": "32 GB",
-                  "value": "32G"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "powervs_aix_oracle_cpu_count",
-              "default_value": "2",
-              "required": false,
-              "options": [
-                {
-                  "displayname": "2",
-                  "value": "2"
-                },
-                {
-                  "displayname": "4",
-                  "value": "4"
-                },
-                {
-                  "displayname": "8",
-                  "value": "8"
-                },
-                {
-                  "displayname": "16",
-                  "value": "16"
-                },
-                {
-                  "displayname": "32",
-                  "value": "32"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "powervs_aix_cpu_processor_type",
-              "required": false,
-              "default_value": "shared",
-              "options": [
-                {
-                  "displayname": "Shared",
-                  "value": "shared"
-                },
-                {
-                  "displayname": "Capped",
-                  "value": "capped"
-                },
-                {
-                  "displayname": "Dedicated",
-                  "value": "dedicated"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "powervs_aix_db_storage_size_in_gb",
-              "required": false,
-              "default_value": "550"
             }
           ],
           "outputs": [
@@ -276,33 +241,6 @@
             }
           ],
           "iam_permissions": [
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
-              "service_name": "appid"
-            },
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
-              "service_name": "cloud-object-storage"
-            },
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
-              "service_name": "hs-crypto"
-            },
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"],
-              "service_name": "iam-identity"
-            },
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
-              "service_name": "kms"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "is.vpc"
-            },
             {
               "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
               "service_name": "is.vpc"
