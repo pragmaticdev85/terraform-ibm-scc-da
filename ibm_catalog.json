@@ -186,9 +186,9 @@
               "custom_config": {}
             },
             {
-              "key": "ibmcloud_api_key",
+              "key": "ssh_private_key",
               "type": "multiline_secure_value",
-              "display_name": "ibmcloud_api_key",
+              "display_name": "ssh_private_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -197,14 +197,67 @@
               }
             },
             {
-              "key": "pi_ssh_public_key_name",
+              "key": "ibmcloud_api_key",
+              "display_name": "ibmcloud_api_key",
               "type": "multiline_secure_value",
-              "display_name": "pi_ssh_public_key_name",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
                 "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "prefix",
+              "required": true,
+              "default_value": ""
+            },
+            {
+              "key": "ora_sid",
+              "display_name": "oracle_db_name",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "oracle_install_type",
+              "type": "string",
+              "default_value": "",
+              "required": true,
+              "options": [
+                {
+                  "displayname": "ASM",
+                  "value": "ASM"
+                },
+                {
+                  "displayname": "JFS",
+                  "value": "JFS"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "ibmcloud_cos_service_credentials",
+              "type": "multiline_secure_value",
+              "display_name": "ibmcloud_cos_service_credentials",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ibmcloud_cos_configuration",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
               }
             }
           ],

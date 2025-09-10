@@ -94,6 +94,32 @@ variable "pi_networks" {
   default = []
 }
 
+variable "ibmcloud_cos_configuration" {
+  description = "Cloud Object Storage instance containing Oracle DB installation files that will be downloaded to NFS share."
+  type = object({
+    cos_region                  = string
+    cos_bucket_name             = string
+    cos_oracle_database_sw_path = string
+    cos_oracle_grid_sw_path     = string
+    cos_oracle_ru_file_path     = string
+    cos_oracle_opatch_file_path = string
+  })
+  default = {
+    "cos_region" : "eu-geo",
+    "cos_bucket_name" : "powervs-automation",
+    "cos_oracle_database_sw_path" : "",
+    "cos_oracle_grid_sw_path" : "",
+    "cos_oracle_ru_file_path" : "",
+    "cos_oracle_opatch_file_path" : ""
+  }
+}
+
+variable "ibmcloud_cos_service_credentials" {
+  description = "IBM Cloud Object Storage instance service credentials to access the bucket in the instance.[json example of service credential](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials)"
+  type        = string
+  sensitive   = true
+}
+
 #####################################################
 # Oracle Storage Configuration
 #####################################################
