@@ -259,6 +259,25 @@
                 "original_grouping": "deployment",
                 "type": "code_editor"
               }
+            },
+            {
+              "key": "pi_aix_instance",
+              "required": false,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "db_storage",
+              "required": false,
+              "default_value": ""
+            },
+            {
+              "key": "pi_user_tags",
+              "required": false,
+              "default_value": ""
             }
           ],
           "outputs": [
