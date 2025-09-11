@@ -215,13 +215,21 @@
             {
               "key": "ora_sid",
               "display_name": "oracle_db_name",
-              "type": "multiline_secure_value",
+              "default_value": "",
+              "type": "string",
               "required": true,
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "multiline_secure_value"
-              }
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "value": "^[A-Za-z_]+[A-Za-z0-9_]+$",
+                  "description": "The specified value shall contain only alphabets, numbers and underscore, and it shall start with an alphabet"
+                },
+                {
+                  "type": "regex",
+                  "value": "^.{3,8}$",
+                  "description": "The specified value length should be between 3 and 8 characters."
+                }
+              ]
             },
             {
               "key": "oracle_install_type",
@@ -316,6 +324,33 @@
           ],
           "iam_permissions": [
             {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::serviceRole:Manager"],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
               "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
               "service_name": "is.vpc"
             },
@@ -331,20 +366,12 @@
           "architecture": {
             "features": [
               {
-                "title": "Setting up AIX based Virtual Server from the PowerVS customer's data-center",
-                "description": "Setup AIX based Virtual Server from the PowerVS customer's data center - Data Plane"
+                "title": "Oracle Solution",
+                "description": "Installed: Oracle single instance database"
               },
               {
-                "title": "Setting up RHEL based Virtual Server from the PowerVS customer's data-center",
-                "description": "Setup RHEL based Virtual Server from the PowerVS customer's data-center - Manaagement Plane"
-              },
-              {
-                "title": "Setting up and initialize the Oracle Database instance on the AIX Virtual Server",
-                "description": "Setup and initialize the Oracle Database instance on the AIX Virtual Server"
-              },
-              {
-                "title": "Enabling the management of the Oracle database instance from IBM Cloud Console",
-                "description": "Enabling the management of the Oracle database instance from IBM Cloud Console"
+                "title": "RHEL on PowerVS",
+                "description": "RHEL Server as the Ansible controller"
               }
             ],
             "diagrams": [
