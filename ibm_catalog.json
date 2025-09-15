@@ -222,12 +222,31 @@
                 {
                   "type": "regex",
                   "value": "^[A-Za-z_]+[A-Za-z0-9_]+$",
-                  "description": "The specified value shall contain only alphabets, numbers and underscore, and it shall start with an alphabet"
+                  "description": "The specified value shall contain only alphabets, numbers and underscore, and it shall start with an alphabet;"
                 },
                 {
                   "type": "regex",
                   "value": "^.{3,8}$",
                   "description": "The specified value length should be between 3 and 8 characters."
+                }
+              ]
+            },
+            {
+              "key": "ora_db_password",
+              "display_name": "oracle_db_main_password",
+              "default_value": "",
+              "type": "string",
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$",
+                  "description": "The specified value should be alpha-numeric and shall contain at least 1 upper, 1 lower, 1 digit and a special character;"
+                },
+                {
+                  "type": "regex",
+                  "value": "^.{8,30}$",
+                  "description": "The specified value length should be between 8 and 30 characters."
                 }
               ]
             },
