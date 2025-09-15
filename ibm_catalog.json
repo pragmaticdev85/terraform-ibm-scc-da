@@ -215,7 +215,7 @@
             },
             {
               "key": "ora_sid",
-              "display_name": "oracle_db_name_1.0.27",
+              "display_name": "oracle_db_name",
               "default_value": "",
               "type": "string",
               "required": true,

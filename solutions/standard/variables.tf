@@ -230,3 +230,13 @@ variable "ora_sid" {
   description = "Name for the oracle database DB SID."
   type        = string
 }
+
+variable "ora_db_password" {
+  description = "Oracle DB user password"
+  type        = string
+}
+
+variable "oracle_install_type" {
+  description = "Oracle install type, value would be either ASM or JFS"
+  type        = string
+}
