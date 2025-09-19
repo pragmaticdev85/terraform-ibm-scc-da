@@ -107,10 +107,10 @@ variable "ibmcloud_cos_configuration" {
   default = {
     "cos_region" : "eu-geo",
     "cos_bucket_name" : "powervs-automation",
-    "cos_oracle_database_sw_path" : "",
-    "cos_oracle_grid_sw_path" : "",
-    "cos_oracle_ru_file_path" : "",
-    "cos_oracle_opatch_file_path" : ""
+    "cos_oracle_database_sw_path" : "", // ASM -> Mandatory // File path check
+    "cos_oracle_grid_sw_path" : "",     // JFS -> Optional; ASM -> Mandatory // File path check
+    "cos_oracle_ru_file_path" : "",     // ASM -> Mandatory // File path check
+    "cos_oracle_opatch_file_path" : ""  // ASM -> Mandatory // File path check
   }
 }
 
@@ -192,6 +192,11 @@ variable "pi_user_tags" {
 
 variable "bastion_host_ip" {
   description = "Jump/Bastion server public IP address to reach the ansible host which has private IP."
+  type        = string
+}
+
+variable "squid_server_ip" {
+  description = "Squid server IP address to reach the internet from private network, mandatory if private cloud is targeted"
   type        = string
 }
 

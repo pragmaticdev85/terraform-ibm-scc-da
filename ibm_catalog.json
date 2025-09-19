@@ -208,6 +208,32 @@
               }
             },
             {
+              "key": "bastion_host_ip",
+              "default_value": "",
+              "type": "string",
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "value": "^(?:[0-9]{1,3}.){3}[0-9]{1,3}$",
+                  "description": "The specified value shall be a valid IPv4 address"
+                }
+              ]
+            },
+            {
+              "key": "squid_server_ip",
+              "default_value": "",
+              "type": "string",
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "value": "^(?:[0-9]{1,3}.){3}[0-9]{1,3}$",
+                  "description": "The specified value shall be a valid IPv4 address"
+                }
+              ]
+            },
+            {
               "key": "prefix",
               "default_value": "",
               "type": "string",
