@@ -62,6 +62,15 @@
             "profiles": []
           },
           "dependencies": [],
+          "scripts": [
+            {
+              "type": "ansible",
+              "short_description": "Validate user inputs",
+              "path": "solutions/scripts/validate-inputs.sh",
+              "stage": "pre",
+              "action": "validate"
+            }
+          ],
           "configuration": [
             {
               "key": "zone",
