@@ -17,7 +17,7 @@ ssh_private_key            = <<-EOF
 -----END RSA PRIVATE KEY-----
 EOF
 
-pi_rhel_management_server_type = "dummy_server_type"
+pi_rhel_management_server_type = "s922"
 pi_rhel_image_name             = "dummy_rhel_image_name"
 pi_aix_image_name              = "dummy_aix_image_name"
 pi_aix_instance = {
