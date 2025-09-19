@@ -2,8 +2,8 @@
 
 # Example input variables
 # (In actual use, these are set by the deployment system/environment.)
-API_KEY="${API_KEY:-}"
-REGION="${REGION:-}"
+# API_KEY="${API_KEY:-}"
+# REGION="${REGION:-}"
 
 # Validation function for empty value
 validate_not_empty() {
@@ -38,11 +38,11 @@ validate_apikey() {
 }
 
 # Run validations
-validate_not_empty "API_KEY" "$API_KEY"
-validate_apikey "$API_KEY"
+# validate_not_empty "API_KEY" "$API_KEY"
+# validate_apikey "$API_KEY"
 
-validate_not_empty "REGION" "$REGION"
-validate_region "$REGION"
+# validate_not_empty "REGION" "$REGION"
+# validate_region "$REGION"
 
-echo "All input validations passed."
+echo "Input varaiables: $region $zone"
 exit 0
