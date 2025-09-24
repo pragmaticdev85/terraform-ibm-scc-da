@@ -41,7 +41,7 @@ pi_networks = [
 ]
 
 # Optional tags
-pi_user_tags = []
+pi_user_tags = ["Tag-001","Tag-002"]
 
 # Oracle installation storage configuration
 pi_boot_volume = {
